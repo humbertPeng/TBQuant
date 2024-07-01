@@ -1,0 +1,102 @@
+MACD
+#####################################
+参数初始化:
+
+FastLength、SlowLength、MACDLength、X、ST 和 PT 是用于计算 MACD 值和设置止损/盈利目标的数值参数。
+变量:
+
+初始化了各种数值和布尔序列，用于存储计算值和交易信号条件。
+MACD 计算:
+
+使用指数移动平均线计算 MACDValue 和 AvgMACD。
+计算 MC 和 AMC 用于确定平仓时机。
+#####################################
+交叉条件:
+
+Cross_up 和 Cross_dn 检测 MACD 何时越过或低于其平均值。
+PD 和 PK 检测平仓 MACD 的交叉点。
+条形跟踪:
+
+Hbar 和 Lbar 跟踪发生交叉时的当前条形。
+Highup 和 Lowdown 分别确定最高和最低价格。
+#####################################
+开仓条件:
+
+当 K 大于 0 且当前高价 H 大于或等于 HD 且市场头寸不为多头时开多头仓位。
+当 K 小于 0 且当前低价 L 小于或等于 LD 且市场头寸不为空头时开空头仓位。
+#####################################
+平仓条件:
+
+对多头仓位，检测 PD 信号、低于止损价 Longstop 或高于止盈价 Longprofit 来平仓。
+对空头仓位，检测 PK 信号、高于止损价 shortstop 或低于止盈价 shortprofit 来平仓。
+
+XAverage(series, length)
+
+计算给定数据序列的指数移动平均线 (EMA)。
+series: 要计算平均值的数据序列。
+length: 移动平均线的周期数。
+CrossOver(series1, series2)
+
+检测两个数据序列何时发生金叉（series1 从下方穿过 series2）。
+series1: 第一个数据序列。
+series2: 第二个数据序列。
+返回布尔值，表示金叉是否发生。
+CrossUnder(series1, series2)
+
+检测两个数据序列何时发生死叉（series1 从上方穿过 series2）。
+series1: 第一个数据序列。
+series2: 第二个数据序列。
+返回布尔值，表示死叉是否发生。
+CurrentBar
+
+返回当前柱线的索引值。
+是一个内置变量，用于标识当前处理的柱线。
+Highest(series, length)
+
+计算给定数据序列在指定周期内的最高值。
+series: 要计算最高值的数据序列。
+length: 考虑的周期数。
+Lowest(series, length)
+
+计算给定数据序列在指定周期内的最低值。
+series: 要计算最低值的数据序列。
+length: 考虑的周期数。
+Buy(quantity, price)
+
+执行买入操作。
+quantity: 买入的数量。
+price: 买入的价格。
+Sell(quantity, price)
+
+执行卖出操作。
+quantity: 卖出的数量。
+price: 卖出的价格。
+SellShort(quantity, price)
+
+执行卖空操作。
+quantity: 卖空的数量。
+price: 卖空的价格。
+BuyToCover(quantity, price)
+
+执行回补空头操作（买入以平仓空头头寸）。
+quantity: 回补的数量。
+price: 回补的价格。
+Max(value1, value2)
+
+返回两个数值中的较大值。
+value1: 第一个数值。
+value2: 第二个数值。
+Min(value1, value2)
+
+返回两个数值中的较小值。
+value1: 第一个数值。
+value2: 第二个数值。
+PlotNumeric(label, value)
+
+绘制数值图表。
+label: 数值的标签。
+value: 要绘制的数值。
+Commentary(text)
+
+在图表上显示注释文本。
+text: 要显示的文本内容。
